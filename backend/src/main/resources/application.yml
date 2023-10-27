@@ -1,0 +1,22 @@
+server.port :
+  9090
+spring:
+#  运行swagger网友配置
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name=com: mysql.cj.jdbc.Driver
+    url: jdbc:mysql://cd-cdb-rxg8j3pm.sql.tencentcdb.com:63931/lwdDB?serverTimezone=GMT%2b8&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 2020141460Yzwx
+    hikari:
+      max-lifetime: 30000   #不能小于30秒，否则默认回到1800秒
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
