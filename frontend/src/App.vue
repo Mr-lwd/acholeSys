@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="non-selectable">
     <notifications position="top right" width="320px"/>
     <!-- <animatedBackground/> -->
     <loading :loading="loading"/>
@@ -232,5 +232,9 @@ a {
 
 thead{
   font-size: large;
+}
+
+.non-selectable {
+  user-select: none;
 }
 </style>

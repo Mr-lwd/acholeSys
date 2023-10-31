@@ -514,7 +514,7 @@ export default {
           newPasswd: this.newPasswd
         }).then(
             res => {
-              if (res) {
+              if (res.code == '200') {
                 this.changeDetail = false
                 this.$notify({
                   title: '请重新登录！',

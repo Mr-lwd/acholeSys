@@ -10,7 +10,7 @@ import java.util.Collections;
 public class CodeGenerator {
 
     public static void main(String[] args) {
-        String tablename = "sys_user";
+        String tablename = "sys_calendar";
         generate(tablename);
     }
 

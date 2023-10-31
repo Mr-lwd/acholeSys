@@ -49,7 +49,7 @@ public class UserController {
     public Result register(@RequestBody User user) {
         if (StrUtil.isBlank(user.getName()) || StrUtil.isBlank(user.getEmail())
                 || StrUtil.isBlank(user.getPhone()) || StrUtil.isBlank(user.getPassword())
-                || StrUtil.isBlank(user.getRole())){
+                || StrUtil.isBlank(user.getRole())) {
             return Result.error(Constants.CODE_400, "参数缺少");
         }
         return Result.success(userService.register(user));
@@ -60,9 +60,9 @@ public class UserController {
                                @RequestParam String oldPasswd,
                                @RequestParam String newPasswd) {
         User one = userService.getById(id);
-        if(!one.getPassword().equals(oldPasswd)){
+        if (!one.getPassword().equals(oldPasswd)) {
             return Result.error(Constants.CODE_500, "旧密码错误");
-        }else{
+        } else {
             one.setPassword(newPasswd);
             return Result.success(userService.saveOrUpdate(one));
         }

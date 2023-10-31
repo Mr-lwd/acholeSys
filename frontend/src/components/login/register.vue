@@ -9,11 +9,11 @@
                     required></v-text-field>
       <v-text-field v-model="password" :rules="passwordRules" color="primary" label="密码"
                     prepend-icon="mdi-lock-outline" required type="password"></v-text-field>
-<!--      <v-select v-model="select" :hint="`${select.power}`" :items="items" :rules="[v => !!v || '选择用户']"-->
-<!--                item-text="state"-->
-<!--                item-value="val" label="选择角色" persistent-hint prepend-icon="mdi-cog-outline"-->
-<!--                required-->
-<!--                return-object></v-select>-->
+      <v-select v-model="select" :hint="`${select.power}`" :items="items" :rules="[v => !!v || '选择用户']"
+                item-text="state"
+                item-value="val" label="选择角色" persistent-hint prepend-icon="mdi-cog-outline"
+                required
+                return-object></v-select>
       <v-checkbox v-model="checkbox" :rules="[v => !!v || '同意必要协议']" label="是否同意必要的使用协议？"
                   required></v-checkbox>
       <v-fade-transition appear>
@@ -56,10 +56,10 @@ export default {
         v => !!v || '密码是必须项',
         v => (v && v.length > 0) || '请输入密码',
       ],
-      // select: {state: '平台使用者', val: 'user', power: "每日记录&信息列表"},
-      // items: [
-      //   {state: '平台使用者', val: 'user', power: "每日记录&信息列表"},
-      // ],
+      select: {state: '平台使用者', val: 'user', power: "每日记录&信息列表"},
+      items: [
+        {state: '平台使用者', val: 'user', power: "每日记录&信息列表"},
+      ],
       checkbox: false,
     }
   },
@@ -68,19 +68,19 @@ export default {
       this.$refs.form.validate()
       // if (this.checkbox && this.email && this.name && this.password && this.select) {
       if (this.checkbox && this.email && this.name && this.password) {
-      let registerData = new FormData()
-      const data = {
-        email: this.email,
-        name: this.name,
-        password: this.password,
-        phone: this.phone,
-        // role: this.select.val,
+        let registerData = new FormData()
+        const data = {
+          email: this.email,
+          name: this.name,
+          password: this.password,
+          phone: this.phone,
+          role: this.select.val,
+        }
+        for (const key in data) {
+          registerData.append(key, data[key]);
+        }
+        await this.$store.dispatch("User/register", registerData)
       }
-      for (const key in data) {
-        registerData.append(key, data[key]);
-      }
-      await this.$store.dispatch("User/register", registerData)
-    }
     }
   },
   mounted() {

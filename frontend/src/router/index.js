@@ -36,9 +36,17 @@ const routes = [
                 },
             },
             {
-                path: 'process',
-                name: 'process',
-                component: () => import("@/components/manage/users/process"),
+                path: 'calendar',
+                name: 'calendar',
+                component: () => import("@/components/manage/users/calendar"),
+                meta: {
+                    roles: ['user']
+                },
+            },
+            {
+                path: 'list',
+                name: 'list',
+                component: () => import("@/components/manage/users/list.vue"),
                 meta: {
                     roles: ['user']
                 },

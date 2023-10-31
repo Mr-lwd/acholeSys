@@ -53,8 +53,8 @@ export default {
     drawer: true,
     items: [
       {title: '信息管理', icon: 'mdi-information-variant-box', linker: '/user/userdetails'},
+      {title: '快捷台历', icon: 'mdi-calendar', linker: '/user/calendar'},
       {title: '每日记录', icon: 'mdi-list-box', linker: '/user/list'},
-      // {title: '前往论坛', icon: 'mdi-notebook', linker: '/diaries'},
     ],
     selectedItem: 0,
     mini: true,

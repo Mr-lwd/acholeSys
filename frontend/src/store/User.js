@@ -93,7 +93,7 @@ export default {
         async register(ctx, msg) {
             await request.post('/user/register', msg)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     if (response.code == '200') {
                         Vue.notify({
                             title: '注册成功',
@@ -103,7 +103,7 @@ export default {
                     } else {
                         Vue.notify({
                             title: '信息有误',
-                            text: '请检查用户信息!',
+                            text: response.msg,
                             type: 'warning'
                         })
                     }
