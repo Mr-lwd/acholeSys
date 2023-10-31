@@ -407,7 +407,7 @@ export default {
     load() {
       this.dataLoading = true
       this.$request.get(`/calendar/all/${this.user.id}`,).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.code == 200) {
           let data = res.data
           for (var i = 0; i < data.length; i++) {

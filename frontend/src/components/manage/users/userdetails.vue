@@ -268,9 +268,15 @@ export default {
           series: [
             {
               data: this.chartData1,
+              color: [
+                '#4CAF50',
+                '#2196F3',
+                '#EB5E28',
+                '#E71D36',
+              ],
               name: '情况',
               type: 'pie',
-              radius: ['40%', '70%'],
+              radius: ['30%', '70%'],
               avoidLabelOverlap: false,
               itemStyle: {
                 borderRadius: 10,

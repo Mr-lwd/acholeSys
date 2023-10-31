@@ -1,5 +1,6 @@
 <template>
-  <v-navigation-drawer disable-resize-watcher v-model="drawer" :mini-variant.sync="mini" app color="secondary" permanent>
+  <v-navigation-drawer  v-model="drawer" :mini-variant.sync="mini" app color="secondary" disable-route-watcher
+                       permanent>
     <v-list-item class="px-2" style="color: white;">
       <v-list-item-avatar style="background-color: white;">
         <v-icon color="primary"> mdi-account</v-icon>
@@ -18,8 +19,8 @@
 
     <v-list-item-group v-model="selectedItem" color="success">
       <v-list shaped>
-        <v-list-item @click="routerPushpath(item.linker)" v-for="item in items" :key="item.title" link>
-          <v-list-item-icon >
+        <v-list-item @click.stop="mini = true" v-for="item in items" :key="item.title" link @click="routerPushpath(item.linker)">
+          <v-list-item-icon>
             <v-icon style="color: white;">{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <!-- <router-link :to="item.linker"> -->
@@ -29,7 +30,7 @@
           <!-- </router-link> -->
         </v-list-item>
         <v-divider></v-divider>
-        <v-list-item style="margin-top: 30px" @click="userLogout">
+        <v-list-item @click.stop="mini = true" style="margin-top: 30px" @click="userLogout">
           <v-list-item-icon>
             <v-icon style="color: white;">
               mdi-logout
@@ -50,7 +51,7 @@ import {mapActions, mapGetters} from "vuex";
 export default {
   name: 'normalUser',
   data: () => ({
-    drawer: true,
+    drawer: false,
     items: [
       {title: '信息管理', icon: 'mdi-information-variant-box', linker: '/user/userdetails'},
       {title: '快捷台历', icon: 'mdi-calendar', linker: '/user/calendar'},

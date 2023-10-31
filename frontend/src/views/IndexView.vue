@@ -165,29 +165,29 @@ export default {
       ],
       projects: [
         {
-          image: './img/借贷.png',
-          title: "面向企业用户的贷款平台",
-          subtitle: "一个传统的高效借贷放贷平台，集合多种功能"
+          image: './img/userdetails.png',
+          title: "面向个人使用的私人记录",
+          subtitle: "一个高效的记录平台，人性化UI"
         },
         {
-          image: './img/货币.jpg',
-          title: "加密货币模拟投资",
-          subtitle: "包括但不限于BTC、ETH等货币的在线实时模拟投资"
+          image: './img/calendar.png',
+          title: "动态台历快捷添加",
+          subtitle: "包括但不限于切换各种立体样式、快速增加记录"
         },
         {
-          image: './img/论坛.png',
-          title: "开放式探讨论坛",
-          subtitle: "大神入驻，畅所欲言，分享前沿投资经验"
+          image: './img/list.png',
+          title: "特殊记录筛选和过滤",
+          subtitle: "记录了以往所有已添加的条目"
         },
       ],
-      teamMembers: [
-        {
-          name: 'Ebrahim Maher',
-          job: 'Founder, CEO & Developer',
-          avatar: './img/team/ebrahim-maher.jpg',
-          description: 'Founder and CEO of EBMSoft company '
-        }
-      ],
+      // teamMembers: [
+      //   {
+      //     name: 'Ebrahim Maher',
+      //     job: 'Founder, CEO & Developer',
+      //     avatar: './img/team/ebrahim-maher.jpg',
+      //     description: 'Founder and CEO of EBMSoft company '
+      //   }
+      // ],
       sections: {
         header: {
           title: "Less Alcohol System",
