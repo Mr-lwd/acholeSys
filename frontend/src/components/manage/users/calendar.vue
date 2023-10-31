@@ -110,13 +110,13 @@
                 <span v-html="selectedEvent.details"></span>
               </v-card-text>
               <v-card-actions>
-                <v-btn
-                    color="success"
-                    text
-                    @click="saveTime"
-                >
-                  保 存
-                </v-btn>
+<!--                <v-btn-->
+<!--                    color="success"-->
+<!--                    text-->
+<!--                    @click="saveTime"-->
+<!--                >-->
+<!--                  保 存-->
+<!--                </v-btn>-->
                 <v-btn
                     color="secondary"
                     text
@@ -441,9 +441,6 @@ export default {
     openTimeDialog() {
       this.addTimeDialog = true;
     },
-    saveTime() {
-
-    },
     deleteItem() {
       this.deleteTipDialog = true
     },
@@ -459,7 +456,7 @@ export default {
         timed: parseInt(this.timed.value == true ? 1 : 0),//是否全天
         userid: parseInt(this.user.id)
       }
-      console.log(data)
+      // console.log(data)
       for (const key in data) {
         dataSend.append(key, data[key]);
       }
@@ -471,6 +468,7 @@ export default {
             text: '添加记录成功',
             type: 'success'
           })
+          this.load()
         } else {
           Vue.notify({
             title: '添加失败',
@@ -481,16 +479,7 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
-      this.events.push({
-        name: `${this.drinkLevels[this.whichDrink.value].state} (${this.timed.state})`,
-        start: this.timed.value ? new Date(`${this.dateInit}T${this.start}:00`) : new Date(`${this.dateInit}T00:00:00`),
-        end: this.timed.value ? new Date(`${this.dateInit}T${this.end}:00`) : new Date(`${this.dateInit}T00:00:00`),
-        color: this.stateColors[this.whichDrink.value],
-        details: this.textarea,
-        drinking: this.whichDrink,
-        timed: this.timed.value,//是否全天
-      })
+      data["color"] = this.stateColors[this.whichDrink.value]
       this.addTimeDialog = false
     },
     resetTime() {

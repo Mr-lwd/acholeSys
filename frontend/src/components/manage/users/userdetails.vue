@@ -1,8 +1,8 @@
 <template>
-  <v-container style="height: 100%">
-    <v-row style="height: 50%;border: 2px dashed grey">
-      <v-col align-self="center" style="width: 50%">
-        <v-card class="mx-auto flat" outlined width="400">
+  <div style="height: 100%">
+    <v-row style="height: 90%;" >
+      <v-col align-self="center"  cols="6">
+        <v-card class="mx-auto flat" outlined width="400" style="border-radius: 10px">
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-h3 mb-10">
@@ -28,21 +28,20 @@
               修改信息
             </v-btn>
           </v-card-actions>
-          <v-divider></v-divider>
         </v-card>
       </v-col>
-      <v-col v-if="dynamicWidth > 400" style="width: 50%">
-        <div v-if="dynamicWidth > 400" id="main2" style="height: 100%"></div>
+      <v-col align-self="center" cols="6">
+        <div  id="main1" style="height: 500px"></div>
       </v-col>
     </v-row>
-    <v-row style="height: 50%;">
-      <v-col style="width: 50%">
-        <div id="main1" style="height: 100%;"></div>
-      </v-col>
-      <v-col style="width: 50%">
-        <div id="main3" style="height: 100%;"></div>
-      </v-col>
-    </v-row>
+<!--    <v-row style="height: 50%;">-->
+<!--      <v-col style="width: 50%">-->
+<!--        <div id="main2" style="height: 100%;"></div>-->
+<!--      </v-col>-->
+<!--      <v-col style="width: 50%">-->
+<!--        <div id="main3" style="height: 100%;"></div>-->
+<!--      </v-col>-->
+<!--    </v-row>-->
 
     <v-dialog v-model="changeDetail" width="400">
       <v-card>
@@ -135,7 +134,7 @@
       </v-card>
     </v-dialog>
     <!--    <userChats></userChats>-->
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -167,16 +166,16 @@ export default {
   },
   data: () => ({
         changeDetail: false,
-        // userDetail: '',
+        userDetail: '',
         formData: '',
         chartDom: "",
         myChart1: "",
-        myChart2: "",
-        myChart3: "",
+        // myChart2: "",
+        // myChart3: "",
         option: "",
         chartData1: [],
-        chartData2: [],
-        chartData3: [],
+        // chartData2: [],
+        // chartData3: [],
         nameRules: [
           v => !!v || '用户名必填',
           v => (v && v.length <= 10) || '用户名不能超过10个字符',
@@ -198,39 +197,13 @@ export default {
           v => !!v || '密码是必须项',
           v => (v && v.length > 0) || '请输入密码',
         ],
-        investDialog: false,
-        tabChart: 0,
-        addInvestDialog: false,
-        amount: 0,
-        sorts: [
-          {
-            id: 0,
-            kind: "BTC"
-          },
-          {
-            id: 1,
-            kind: "ETH"
-          }, {
-            id: 2,
-            kind: "DASH"
-          },
-        ],
-        select: 0,
-        coins: null,
-        sellDialog: false,
-        selectCoin: {
-          name: '未选择',
-          value: 0,
-          moneyid: null,
-        },
-        sellCount: 0,//提现数量
       }
   ),
   computed: {
     ...mapState('User', ['user']),
-    userDetail() {
-      return this.user
-    },
+    // userDetail() {
+    //   return this.user
+    // },
     dynamicWidth() {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
@@ -248,7 +221,7 @@ export default {
   }
   ,
   created() {
-    // this.userDetail = this.user
+    this.userDetail = this.user
   }
   ,
   mounted() {
@@ -263,9 +236,9 @@ export default {
       this.changeDetail = true
     }
     ,
-    async crypoget() {
-      await this.$request.get(`/loan/userGetLoanCounts/${this.user.id}`).then(response => {
-        // console.log(response)
+    crypoget() {
+      this.$request.get(`/calendar/charts/${this.user.id}`).then(response => {
+        console.log(response)
         var chartDom = document.getElementById('main1');
         var myChart1 = echarts.init(chartDom);
         var option;
@@ -273,16 +246,16 @@ export default {
         const data = JSON.parse(JSON.stringify(response.data))
 
         this.chartData1 = [
-          {value: data["loaned"], name: '已借款'},
-          {value: data["loaning"], name: '借款中'},
-          {value: data["loanrepay"], name: '已还款'},
-          {value: data["loanexpire"], name: '已逾期'}
+          {value: data["drinking0"], name: '未沾一滴'},
+          {value: data["drinking1"], name: '少量酒精'},
+          {value: data["drinking2"], name: '接近醉酒'},
+          {value: data["drinking3"], name: '深度醉酒'}
         ]
 
         // console.log(this.chartData1)
         option = {
           title: {
-            text: '贷款分布',
+            text: '总体图表',
             left: 'center'
           },
           tooltip: {
@@ -295,7 +268,7 @@ export default {
           series: [
             {
               data: this.chartData1,
-              name: '订单数',
+              name: '情况',
               type: 'pie',
               radius: ['40%', '70%'],
               avoidLabelOverlap: false,
@@ -321,140 +294,6 @@ export default {
           ]
         };
         option && myChart1.setOption(option);
-      }).catch(err => {
-        console.log(err)
-      })
-      await this.$request.get(`/loan/userGetAllLoan/${this.user.id}`).then(response => {
-        // console.log(response)
-        var chartDom = document.getElementById('main2');
-        var myChart2 = echarts.init(chartDom);
-        var option;
-
-        const data = JSON.parse(JSON.stringify(response.data))
-
-        this.chartData2 = [
-          {value: data["loaning"], name: '借款中'},
-          {value: data["loaned"], name: '已借款'},
-          {value: data["repay"], name: '已还款'},
-        ]
-        // console.log(this.chartData2)
-        option = {
-          title: {
-            text: '贷款金额',
-            left: 'center'
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'shadow'
-            }
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'category',
-            data: ['借款中', '已借款', '已还款'],
-            axisTick: {
-              alignWithLabel: true
-            }
-          },
-          yAxis: {
-            type: 'value',
-          },
-          series: [
-            {
-              data: this.chartData2,
-              //name: 'ALLMONEY',
-              type: 'bar',
-              barWidth: '40',
-              //radius: '50%',
-              itemStyle: {
-                barBorderRadius: [0, 50, 50, 0],// 统一设置四个角的圆角大小
-                normal: {
-                  //这里是重点
-                  color: function (params) {
-                    //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
-                    //var colorList = ['#00F4FF', '#0092FF', '#0061FE', '#002099', '#000682'];
-                    var colorList = ['rgba(30,144,255,1)', 'rgb(76,168,51)', 'rgb(255,191,66)'];
-                    return colorList[params.dataIndex]
-                  }
-                }
-              },
-            }
-          ]
-        };
-        option && myChart2.setOption(option);
-      }).catch(err => {
-        console.log(err)
-      })
-      await this.$request.get(`/virtualSaving/userGetCoins/${this.user.id}`).then(response => {
-        // console.log(response)
-        var chartDom = document.getElementById('main3');
-        var myChart3 = echarts.init(chartDom);
-        var option;
-
-        const data = JSON.parse(JSON.stringify(response.data))
-
-
-        for (let i = 0; i < data.length; i++) {
-          this.chartData3.push(
-              {value: data[i].amount, name: data[i].moneyname, moneyid: data[i].moneyid}
-          )
-        }
-
-        // this.chartData3 = [
-        //   {value: data["BTC"], name: 'BTC'},
-        //   {value: data["ETH"], name: 'ETH'},
-        //   {value: data["DASH"], name: 'DASH'}
-        // ]
-
-        // console.log(this.chartData1)
-        option = {
-          title: {
-            text: '虚拟货币持有',
-            left: 'center'
-          },
-          tooltip: {
-            trigger: 'item'
-          },
-          legend: {
-            top: '5%',
-            left: 'center'
-          },
-          series: [
-            {
-              data: this.chartData3,
-              name: '持有总数',
-              type: 'pie',
-              radius: ['40%', '70%'],
-              avoidLabelOverlap: false,
-              itemStyle: {
-                borderRadius: 10,
-                borderColor: '#fff',
-                borderWidth: 2
-              },
-              label: {
-                show: false,
-                position: 'center'
-              },
-              emphasis: {
-                label: {
-                  show: true,
-                  fontSize: 30,
-                  //fontWeight: 'bold'
-                }
-              },
-              labelLine: {
-                show: false
-              },
-            }
-          ]
-        };
-        option && myChart3.setOption(option);
       }).catch(err => {
         console.log(err)
       })
@@ -545,150 +384,34 @@ export default {
     reset() {
       this.formData = JSON.parse(JSON.stringify((this.userDetail)))
     },
-    sendInvest() {
-      if (this.amount == 0 || this.amount == undefined) {
-        this.$notify(
-            {
-              title: '投资金额错误',
-              type: 'error'
-            }
-        )
-      } else {
-        this.addInvestDialog = false
-        setTimeout(() => {
-          this.investDialog = false
-        }, 500)
-        const form = new FormData()
-        this.$request.get('https://min-api.cryptocompare.com/data/price', {
-          params: {
-            fsym: this.sorts[this.select].kind,
-            tsyms: 'USD',
-            api_key: '086c7bbfe76ba2a27be3820b3e59ca74d79392757cb1be99139c3d83ac9b05b7',
-          }
-        }).then(res => {
-          // console.log(res)
-          if (res['USD']) {
-            const data = {
-              userid: this.user.id,
-              moneyid: this.select,
-              amount: this.amount,
-              rate: res['USD']
-            }
-            // console.log(data)
-            for (let key in data) {
-              form.append(key, data[key])
-            }
-            this.$request.post('/invest/add', form).then(
-                res => {
-                  // console.log(res)
-                  if (res.code == 200) {
-                    this.refreshDetails()
-                    this.reInitCharts()
-                    this.$notify({
-                      title: '投资成功',
-                      type: 'success'
-                    })
-                  } else {
-                    this.$notify({
-                      title: res.msg,
-                      type: 'error'
-                    })
-                  }
-                }
-            ).catch(err => {
-              console.log(err)
-            })
-          }
-        })
-      }
-    },
     clearHander() {
       // 清空当前实例，会移除实例中所有的组件和图表。
       let myChart1 = echarts.init(document.getElementById('main1'));
-      let myChart2 = echarts.init(document.getElementById('main2'));
-      let myChart3 = echarts.init(document.getElementById('main3'));
+      // let myChart2 = echarts.init(document.getElementById('main2'));
+      // let myChart3 = echarts.init(document.getElementById('main3'));
       myChart1.clear()
       myChart1.dispose()
-      myChart2.clear()
-      myChart2.dispose()
-      myChart3.clear()
-      myChart3.dispose()
+      // myChart2.clear()
+      // myChart2.dispose()
+      // myChart3.clear()
+      // myChart3.dispose()
       this.chartData1 = []
-      this.chartData2 = []
-      this.chartData3 = []
+      // this.chartData2 = []
+      // this.chartData3 = []
     },
     reInitCharts() {
       this.clearHander()
       // console.log(sort)
       this.crypoget()
     },
-    sellCoins() {
-      if (this.selectCoin.moneyid == null || this.sellCount <= 0 ||
-          this.sellCount == undefined || this.sellCount == null) {
-        this.$notify({
-          title: '提现信息错误!',
-          type: 'error'
-        })
-      } else {
-        this.$request.get('https://min-api.cryptocompare.com/data/price', {
-          params: {
-            fsym: this.selectCoin.name,
-            tsyms: 'USD',
-            api_key: '086c7bbfe76ba2a27be3820b3e59ca74d79392757cb1be99139c3d83ac9b05b7',
-          }
-        }).then(res => {
-              if (res['USD']) {
-                const form = new FormData()
-                const temp = {
-                  userid: this.user.id,
-                  amount: this.sellCount,
-                  rate: res['USD'],
-                  moneyid: this.selectCoin.moneyid
-                }
-                for (let key in temp) {
-                  form.append(key, temp[key])
-                }
-                this.$request.post('/sold', form)
-                    .then(res => {
-                      if (res.code == 200) {
-                        // console.log(res)
-                        this.$notify({
-                          title: '提现成功!',
-                          type: 'success'
-                        })
-                      } else {
-                        this.$notify({
-                          title: '提现失败!',
-                          type: 'error'
-                        })
-                      }
-                      this.sellDialog = false
-                      this.refreshDetails()
-                      this.reInitCharts()
-                    })
-                    .catch(err => {
-                      console.log(err)
-                    })
-              } else {
-                this.$notify({
-                  title: '调用接口!',
-                  type: 'error'
-                })
-              }
-            }
-        ).catch(err => {
-          console.log(err)
-        })
-      }
-    }
   }
   ,
   watch: {
-    tabChart: {
-      handler(newVal, oldVal) {
-        this.$refs.indexChart.reInitCharts(newVal)
-      },
-    }
+    // tabChart: {
+    //   handler(newVal, oldVal) {
+    //     this.$refs.indexChart.reInitCharts(newVal)
+    //   },
+    // }
   }
   ,
 }

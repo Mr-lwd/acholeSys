@@ -134,7 +134,7 @@ export default {
     this.load()
     setTimeout(() => {
       this.loadingTable = false
-    }, 900)
+    }, 300)
   },
   methods: {
     ...mapActions('User', ['refreshDetails']),

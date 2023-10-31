@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.dbwork.springboot.service.ICalendarService;
 import com.dbwork.springboot.entity.Calendar;
@@ -101,6 +104,22 @@ public class CalendarController {
         QueryWrapper<Calendar> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userid", userid);
         return Result.success(calendarService.list(queryWrapper));
+    }
+
+    @GetMapping("/charts/{userid}")
+    public  Result returnCharts(@PathVariable Integer userid){
+        QueryWrapper<Calendar> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userid", userid);
+
+        Map<String, Integer> chartsNum = new HashMap<>();
+        List<Calendar> list = calendarService.list(queryWrapper);
+        chartsNum.put("counts", list.size());
+        chartsNum.put("drinking0", list.stream().filter(calendar->calendar.getDrinking().equals(0)).collect(Collectors.toList()).size());
+        chartsNum.put("drinking1", list.stream().filter(calendar->calendar.getDrinking().equals(1)).collect(Collectors.toList()).size());
+        chartsNum.put("drinking2", list.stream().filter(calendar->calendar.getDrinking().equals(2)).collect(Collectors.toList()).size());
+        chartsNum.put("drinking3", list.stream().filter(calendar->calendar.getDrinking().equals(3)).collect(Collectors.toList()).size());
+
+        return  Result.success(chartsNum);
     }
 }
 
