@@ -448,11 +448,12 @@ export default {
       let dataSend = new FormData()
       const data = {
         name: `${this.drinkLevels[this.whichDrink.value].state} (${this.timed.state})`,
-        start: this.timed.value ? new Date(`${this.dateInit}T${this.start}:00`).toLocaleString() : new Date(`${this.dateInit}T00:00:00`).toLocaleString(),
-        end: this.timed.value ? new Date(`${this.dateInit}T${this.end}:00`).toLocaleString() : new Date(`${this.dateInit}T23:59:59`).toLocaleString(),
+        start: this.timed.value ? `${this.dateInit} ${this.start}:00` : `${this.dateInit} 00:00:00`,
+        end: this.timed.value ? `${this.dateInit} ${this.end}:00`: `${this.dateInit} 23:59:59`,
         // color: this.stateColors[this.whichDrink.value],
         details: this.textarea,
         drinking: parseInt(this.whichDrink.value),
+
         timed: parseInt(this.timed.value == true ? 1 : 0),//是否全天
         userid: parseInt(this.user.id)
       }
@@ -460,6 +461,7 @@ export default {
       for (const key in data) {
         dataSend.append(key, data[key]);
       }
+      console.log(data)
       // console.log(dataSend)
       this.$request.post("/calendar/save", dataSend).then(res => {
         if (res == true) {
@@ -469,18 +471,23 @@ export default {
             type: 'success'
           })
           this.load()
+          this.addTimeDialog = false
         } else {
           Vue.notify({
             title: '添加失败',
             text: '添加记录失败',
-            type: 'error'
+            type: 'warning'
           })
         }
       }).catch(err => {
+        Vue.notify({
+          title: '添加失败',
+          text: '服务器错误',
+          type: 'error'
+        })
         console.log(err)
       })
       data["color"] = this.stateColors[this.whichDrink.value]
-      this.addTimeDialog = false
     },
     resetTime() {
       this.dateInit = this.nowTime
@@ -522,7 +529,6 @@ export default {
       this.editDetailDialog = false
     },
     deleteTipConfirm() {
-
       const i = this.events.indexOf(this.selectedEvent)
       this.$request.get(`/calendar/delete/${this.selectedEvent.id}`,).then(res => {
         if (res == true) {

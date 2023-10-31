@@ -70,7 +70,7 @@ export default {
             contactItems: [
                 { name: '邮件地址', icon: 'mdi-email', value: '1850245174@qq.com', color: '#fed8b1' },
                 { name: 'github', icon: 'mdi-github', value: 'https://github.com/Mr-lwd/acholeSys', color: 'white', href: '' },
-                { name: '运行网站', icon: 'mdi-web', value: 'http://116.205.234.27/', color: 'grey', href: '' },
+                { name: '运行网站', icon: 'mdi-web', value: 'http://116.205.234.27:8080/', color: 'grey', href: '' },
             ],
             copyrights: "EBMSoft - All rights reserved.",
             description: "LASYS是一个专注于管控酒精摄入的个人向系统。为阖家辛福提供每日记录等功能支持。尽量减少饮酒可提高心脏健康、改善肝功能、促进更好的睡眠、提高免疫功能和维持健康体重等。",

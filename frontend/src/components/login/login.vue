@@ -14,7 +14,8 @@
               立 即 登 入
             </v-btn>
             <v-btn color="primary" depressed large outlined style="margin-left: 2vw;" tile>
-              <router-link to="/diaries">前 往 论 坛</router-link>
+<!--              <router-link to="/diaries">前 往 论 坛</router-link>-->
+              前 往 论 坛
             </v-btn>
           </v-row>
         </v-card-actions>

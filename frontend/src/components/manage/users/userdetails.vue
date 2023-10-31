@@ -1,8 +1,8 @@
 <template>
   <div style="height: 100%">
-    <v-row style="height: 90%;" >
-      <v-col align-self="center"  cols="6">
-        <v-card class="mx-auto flat" outlined width="400" style="border-radius: 10px">
+    <v-row style="height: 40%;">
+      <v-col align-self="center" cols="12">
+        <v-card class="mx-auto flat" outlined style="border-radius: 10px" width="400">
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-h3 mb-10">
@@ -30,18 +30,20 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col align-self="center" cols="6">
-        <div  id="main1" style="height: 500px"></div>
+    </v-row>
+    <v-row style="height: 60%">
+      <v-col align-self="center" cols="12">
+        <div id="main1" style="height: 500px"></div>
       </v-col>
     </v-row>
-<!--    <v-row style="height: 50%;">-->
-<!--      <v-col style="width: 50%">-->
-<!--        <div id="main2" style="height: 100%;"></div>-->
-<!--      </v-col>-->
-<!--      <v-col style="width: 50%">-->
-<!--        <div id="main3" style="height: 100%;"></div>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
+    <!--    <v-row style="height: 50%;">-->
+    <!--      <v-col style="width: 50%">-->
+    <!--        <div id="main2" style="height: 100%;"></div>-->
+    <!--      </v-col>-->
+    <!--      <v-col style="width: 50%">-->
+    <!--        <div id="main3" style="height: 100%;"></div>-->
+    <!--      </v-col>-->
+    <!--    </v-row>-->
 
     <v-dialog v-model="changeDetail" width="400">
       <v-card>
