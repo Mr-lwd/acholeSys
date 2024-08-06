@@ -7,9 +7,9 @@ spring:
       matching-strategy: ant_path_matcher
   datasource:
     driver-class-name=com: mysql.cj.jdbc.Driver
-    url: jdbc:mysql://cd-cdb-rxg8j3pm.sql.tencentcdb.com:63931/lwdDB?serverTimezone=GMT%2b8&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://101.34.244.96:3306/alcoholSys?serverTimezone=GMT%2b8&useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 2020141460Yzwx
+    password: 20020530Lwd,./
     hikari:
       max-lifetime: 30000   #不能小于30秒，否则默认回到1800秒
 mybatis:

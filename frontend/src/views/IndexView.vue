@@ -266,8 +266,14 @@ export default {
         {
           date: "2023-10-25",
           title: "系统功能完全实现",
-          icon: "mdi-numeric-6",
+          icon: "mdi-numeric-4",
           content: "论坛功能，界面美化"
+        },
+        {
+          date: "2024-08-06",
+          title: "三年服务器延长",
+          icon: "mdi-numeric-5",
+          content: "Cloud Service & Mysql"
         }
       ],
       // contact: {
@@ -307,6 +313,7 @@ export default {
         {date: this.timeline[1].date, title: this.timeline[1].title, content: this.timeline[1].content, icon:this.timeline[1].icon},
         {date: this.timeline[2].date, title: this.timeline[2].title, content: this.timeline[2].content, icon:this.timeline[2].icon},
         {date: this.timeline[3].date, title: this.timeline[3].title, content: this.timeline[3].content, icon:this.timeline[3].icon},
+        {date: this.timeline[4].date, title: this.timeline[4].title, content: this.timeline[4].content, icon:this.timeline[4].icon},
       ];
     },
     ...GlobalComputed

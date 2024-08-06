@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/acholeSys.iml" filepath="$PROJECT_DIR$/.idea/acholeSys.iml" />
-      <module fileurl="file://$PROJECT_DIR$/backend/springboot.iml" filepath="$PROJECT_DIR$/backend/springboot.iml" />
     </modules>
   </component>
 </project>
